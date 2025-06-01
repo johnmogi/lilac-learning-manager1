@@ -62,12 +62,35 @@ function lilac_learning_manager_init() {
         return;
     }
 
-    // Load text domain for translations
-    load_plugin_textdomain(
-        'lilac-learning-manager',
-        false,
-        dirname(plugin_basename(__FILE__)) . '/languages/'
-    );
+    // Set up text domain for translations
+    add_action('plugins_loaded', function() {
+        // First try to load from WordPress languages directory
+        $locale = apply_filters('plugin_locale', get_locale(), 'lilac-learning-manager');
+        $mofile = WP_LANG_DIR . '/plugins/lilac-learning-manager-' . $locale . '.mo';
+        
+        if (file_exists($mofile)) {
+            load_textdomain('lilac-learning-manager', $mofile);
+        } else {
+            // Fallback to plugin languages directory
+            load_plugin_textdomain(
+                'lilac-learning-manager',
+                false,
+                dirname(plugin_basename(__FILE__)) . '/languages/'
+            );
+        }
+        
+        // Add RTL stylesheet if needed
+        if (is_rtl()) {
+            add_action('admin_enqueue_scripts', function() {
+                wp_enqueue_style(
+                    'lilac-learning-manager-rtl',
+                    plugins_url('assets/css/admin-rtl.css', __FILE__),
+                    array(),
+                    LILAC_LEARNING_MANAGER_VERSION
+                );
+            });
+        }
+    });
 
     // Initialize the main plugin class
     $plugin = new \LilacLearningManager\Core\Plugin();

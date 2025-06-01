@@ -1,0 +1,286 @@
+/* RTL Admin Styles for Lilac Learning Manager - Hebrew */
+
+/* General RTL Fixes */
+.rtl {
+    text-align: right;
+    direction: rtl;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Admin Menu Fixes */
+#adminmenu .wp-submenu {
+    right: 0;
+    left: auto;
+    text-align: right;
+}
+
+#adminmenu .wp-submenu-wrap {
+    margin-right: 0;
+}
+
+/* Settings Page */
+.llm-settings-wrap {
+    margin-right: 20px;
+    margin-left: 0;
+}
+
+.llm-settings-content {
+    float: right;
+    width: 70%;
+    padding: 20px 0;
+}
+
+.llm-settings-sidebar {
+    float: left;
+    width: 25%;
+    padding: 20px 0;
+}
+
+/* Toggle Switch */
+.llm-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.llm-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.llm-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.llm-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    right: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .llm-slider {
+    background-color: #007cba;
+}
+
+input:checked + .llm-slider:before {
+    transform: translateX(-26px);
+}
+
+/* Form Elements */
+.form-table th {
+    padding: 20px 10px 20px 0;
+    width: 200px;
+    text-align: right;
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+/* Dashboard Widgets */
+.llm-dashboard-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.llm-dashboard-widget {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.llm-dashboard-widget h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #23282d;
+}
+
+/* Stats List */
+.llm-stats-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.llm-stats-list li {
+    margin: 10px 0;
+    padding: 0;
+}
+
+.llm-stats-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #2271b1;
+    transition: color 0.2s;
+}
+
+.llm-stats-list a:hover {
+    color: #135e96;
+}
+
+.llm-stats-list .dashicons {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+/* Activity Feed */
+.llm-activity-feed {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.llm-activity-feed li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.llm-activity-feed li:last-child {
+    border-bottom: none;
+}
+
+.llm-activity-feed a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #2271b1;
+}
+
+.llm-activity-feed .dashicons {
+    margin-left: 8px;
+    margin-right: 0;
+    color: #646970;
+}
+
+/* Settings Page */
+.llm-settings-wrap {
+    margin-top: 20px;
+}
+
+.llm-settings-section {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.llm-settings-section h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.llm-form-table th {
+    width: 200px;
+    text-align: right;
+    padding: 20px 10px 20px 0;
+}
+
+.llm-form-table td {
+    padding: 15px 10px;
+}
+
+.llm-form-table input[type="text"],
+.llm-form-table input[type="number"],
+.llm-form-table input[type="email"],
+.llm-form-table input[type="url"],
+.llm-form-table input[type="password"],
+.llm-form-table select,
+.llm-form-table textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.llm-form-table .description {
+    color: #646970;
+    font-style: italic;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Toggle Switch */
+.llm-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-left: 10px;
+}
+
+.llm-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.llm-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.llm-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    right: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .llm-slider {
+    background-color: #2271b1;
+}
+
+input:checked + .llm-slider:before {
+    transform: translateX(-26px);
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .llm-dashboard-widgets {
+        grid-template-columns: 1fr;
+    }
+    
+    .llm-form-table th,
+    .llm-form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+}

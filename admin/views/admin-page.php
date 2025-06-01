@@ -11,21 +11,21 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="wrap">
+<div class="wrap" dir="rtl">
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     
     <div class="llm-admin-header">
         <div class="llm-admin-header-content">
-            <h2><?php esc_html_e('Welcome to Lilac Learning Manager', 'lilac-learning-manager'); ?></h2>
+            <h2>ברוכים הבאים למנהל למידת לילך</h2>
             <p class="about-description">
-                <?php esc_html_e('Manage your learning programs, courses, and questions from this dashboard.', 'lilac-learning-manager'); ?>
+                ניהול תוכניות למידה, קורסים ושאלות שלך מהלוח הבקרה
             </p>
         </div>
     </div>
     
     <div class="llm-dashboard-widgets">
         <div class="llm-dashboard-widget">
-            <h3><?php esc_html_e('Quick Stats', 'lilac-learning-manager'); ?></h3>
+            <h3>נתונים מהירים</h3>
             <ul class="llm-stats-list">
                 <?php
                 // Get program count
@@ -35,10 +35,7 @@ if (!defined('ABSPATH')) {
                         <a href="<?php echo esc_url(admin_url('edit-tags.php?taxonomy=llm_program&post_type=sfwd-courses')); ?>">
                             <span class="dashicons dashicons-category"></span>
                             <?php 
-                            printf(
-                                _n('%d Program', '%d Programs', $program_count, 'lilac-learning-manager'),
-                                $program_count
-                            );
+                            echo $program_count . ' ' . _n('תוכנית', 'תוכניות', $program_count, 'lilac-learning-manager');
                             ?>
                         </a>
                     </li>
@@ -52,10 +49,7 @@ if (!defined('ABSPATH')) {
                     <a href="<?php echo esc_url(admin_url('edit.php?post_type=sfwd-courses')); ?>">
                         <span class="dashicons dashicons-welcome-learn-more"></span>
                         <?php 
-                        printf(
-                            _n('%d Course', '%d Courses', $course_count, 'lilac-learning-manager'),
-                            $course_count
-                        );
+                        echo $course_count . ' ' . _n('קורס', 'קורסים', $course_count, 'lilac-learning-manager');
                         ?>
                     </a>
                 </li>
@@ -68,10 +62,7 @@ if (!defined('ABSPATH')) {
                     <a href="<?php echo esc_url(admin_url('edit.php?post_type=sfwd-question')); ?>">
                         <span class="dashicons dashicons-editor-help"></span>
                         <?php 
-                        printf(
-                            _n('%d Question', '%d Questions', $question_count, 'lilac-learning-manager'),
-                            $question_count
-                        );
+                        echo $question_count . ' ' . _n('שאלה', 'שאלות', $question_count, 'lilac-learning-manager');
                         ?>
                     </a>
                 </li>
@@ -79,7 +70,7 @@ if (!defined('ABSPATH')) {
         </div>
         
         <div class="llm-dashboard-widget">
-            <h3><?php esc_html_e('Recent Activity', 'lilac-learning-manager'); ?></h3>
+            <h3>פעילות אחרונה</h3>
             <div class="llm-activity-feed">
                 <?php
                 // Get recent activity
@@ -93,7 +84,7 @@ if (!defined('ABSPATH')) {
                     echo '<ul>';
                     foreach ($recent_posts as $post) {
                         $post_type = get_post_type_object($post['post_type']);
-                        $post_type_name = $post_type ? $post_type->labels->singular_name : __('Item', 'lilac-learning-manager');
+                        $post_type_name = $post_type ? $post_type->labels->singular_name : 'פריט';
                         echo sprintf(
                             '<li><span class="dashicons %s"></span> %s: <a href="%s">%s</a></li>',
                             $post['post_type'] === 'sfwd-courses' ? 'dashicons-welcome-learn-more' : 'dashicons-editor-help',
