@@ -1,0 +1,716 @@
+/**
+ * Lilac Learning Manager - Admin Styles (RTL)
+ */
+
+/* ==========================================================================
+   General Admin Styles
+   ========================================================================== */
+
+.llm-admin-page,
+[dir="rtl"] .llm-admin-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.llm-admin-page h1,
+[dir="rtl"] .llm-admin-page h1 {
+    margin-bottom: 25px;
+    color: #1e1e1e;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.llm-admin-page .notice,
+[dir="rtl"] .llm-admin-page .notice {
+    margin: 15px 0;
+    padding: 12px 15px;
+}
+
+/* Dashboard Layout */
+.llm-admin-header {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 25px 30px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.llm-admin-header-content h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1e1e1e;
+}
+
+.llm-admin-header-content .about-description {
+    margin: 0;
+    color: #646970;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.llm-dashboard-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.llm-dashboard-widget {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.llm-dashboard-widget h3 {
+    margin: 0 0 15px 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #dcdcde;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1e1e1e;
+}
+
+.llm-stats-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.llm-stats-list li {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+.llm-stats-list li:last-child {
+    margin-bottom: 0;
+}
+
+.llm-stats-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #2271b1;
+    transition: color 0.2s ease;
+}
+
+.llm-stats-list a:hover {
+    color: #135e96;
+}
+
+.llm-stats-list .dashicons {
+    margin-left: 8px;
+    color: #646970;
+}
+
+.llm-activity-feed ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.llm-activity-feed li {
+    margin: 0 0 12px 0;
+    padding: 0 0 12px 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.llm-activity-feed li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.llm-activity-feed a {
+    text-decoration: none;
+    color: #2271b1;
+}
+
+.llm-activity-feed a:hover {
+    text-decoration: underline;
+}
+
+.llm-activity-feed .dashicons {
+    margin-left: 5px;
+    color: #646970;
+    vertical-align: middle;
+}
+
+.llm-dashboard-footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #dcdcde;
+    color: #646970;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   RTL Specific Styles
+   ========================================================================== */
+
+[dir="rtl"] .llm-admin-header,
+[dir="rtl"] .llm-dashboard-widget,
+[dir="rtl"] .llm-stats-list,
+[dir="rtl"] .llm-activity-feed {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .llm-stats-list .dashicons,
+[dir="rtl"] .llm-activity-feed .dashicons {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+[dir="rtl"] .llm-stats-list a,
+[dir="rtl"] .llm-activity-feed a {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+[dir="rtl"] .llm-dashboard-widget h3 {
+    text-align: right;
+    padding-right: 0;
+    padding-left: 0;
+    border-right: none;
+    border-left: none;
+}
+
+[dir="rtl"] .llm-dashboard-widget {
+    text-align: right;
+}
+
+[dir="rtl"] .llm-activity-feed li {
+    padding-right: 0;
+    padding-left: 15px;
+    border-right: none;
+    border-left: 3px solid #f0f0f1;
+}
+
+[dir="rtl"] .llm-dashboard-footer {
+    text-align: center;
+}
+
+/* Fix for RTL in form elements */
+[dir="rtl"] input[type="text"],
+[dir="rtl"] input[type="email"],
+[dir="rtl"] input[type="url"],
+[dir="rtl"] input[type="password"],
+[dir="rtl"] input[type="search"],
+[dir="rtl"] input[type="number"],
+[dir="rtl"] input[type="tel"],
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+    text-align: right;
+}
+
+/* Fix for buttons in RTL */
+[dir="rtl"] .button,
+[dir="rtl"] button,
+[dir="rtl"] input[type="button"],
+[dir="rtl"] input[type="reset"],
+[dir="rtl"] input[type="submit"] {
+    float: right;
+}
+
+/* ==========================================================================
+   Programs Meta Box
+   ========================================================================== */
+
+.llm-programs-checkbox-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 3px;
+}
+
+.llm-program-checkbox {
+    margin: 5px 0;
+    padding: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.llm-program-checkbox:last-child {
+    border-bottom: none;
+}
+
+.llm-program-checkbox label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.llm-program-checkbox input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.llm-program-color {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+.llm-program-name {
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+   Programs List Table
+   ========================================================================== */
+
+.wp-list-table .column-color {
+    width: 80px;
+    text-align: center;
+}
+
+.wp-list-table .column-icon {
+    width: 60px;
+    text-align: center;
+}
+
+.wp-list-table .column-featured {
+    width: 80px;
+    text-align: center;
+}
+
+.wp-list-table .column-visibility {
+    width: 100px;
+}
+
+.wp-list-table .column-courses {
+    width: 80px;
+    text-align: center;
+}
+
+.llm-color-swatch {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+   Program Form Fields
+   ========================================================================== */
+
+.form-field.term-color-wrap p.description,
+.form-field.term-icon-wrap p.description,
+.form-field.term-description-wrap p.description,
+.form-field.term-short-description-wrap p.description,
+.form-field.term-featured-wrap p.description,
+.form-field.term-visibility-wrap p.description {
+    margin-top: 5px;
+    color: #666;
+}
+
+/* Color Picker */
+.wp-picker-container {
+    vertical-align: middle;
+}
+
+.wp-picker-container .wp-color-result {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+@media screen and (max-width: 782px) {
+    .wp-list-table .column-color,
+    .wp-list-table .column-icon,
+    .wp-list-table .column-featured,
+    .wp-list-table .column-visibility,
+    .wp-list-table .column-courses {
+        display: none;
+    }
+    
+    .llm-programs-checkbox-container {
+        max-height: 200px;
+    }
+}
+
+/* ==========================================================================
+   Tabs
+   ========================================================================== */
+
+.llm-tabs {
+    margin: 20px 0;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.llm-tab {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 2px 0 0;
+    background: #f1f1f1;
+    border: 1px solid #ccd0d4;
+    border-bottom: none;
+    text-decoration: none;
+    color: #2271b1;
+    font-weight: 500;
+    border-radius: 4px 4px 0 0;
+}
+
+.llm-tab-active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+    color: #1d2327;
+}
+
+.llm-tab-content {
+    display: none;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-top: none;
+}
+
+.llm-tab-content.active {
+    display: block;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.llm-form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.llm-form-table th {
+    width: 200px;
+    text-align: left;
+    padding: 20px 10px 20px 0;
+    vertical-align: top;
+}
+
+.llm-form-table td {
+    padding: 15px 0;
+    vertical-align: top;
+}
+
+.llm-form-table input[type="text"],
+.llm-form-table input[type="url"],
+.llm-form-table input[type="email"],
+.llm-form-table input[type="number"],
+.llm-form-table input[type="password"],
+.llm-form-table select,
+.llm-form-table textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.llm-form-table textarea {
+    min-height: 100px;
+}
+
+.llm-form-table .description {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.llm-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #2271b1;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #135e96;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.llm-button:hover,
+.llm-button:focus {
+    background: #135e96;
+    color: #fff;
+    border-color: #0a4b78;
+}
+
+.llm-button-secondary {
+    background: #f0f0f1;
+    color: #2c3338;
+    border-color: #dcdcde;
+}
+
+.llm-button-secondary:hover,
+.llm-button-secondary:focus {
+    background: #dcdcde;
+    color: #2c3338;
+    border-color: #c3c4c7;
+}
+
+.llm-button-danger {
+    background: #d63638;
+    border-color: #b32d2e;
+}
+
+.llm-button-danger:hover,
+.llm-button-danger:focus {
+    background: #b32d2e;
+    border-color: #8a2424;
+}
+
+/* ==========================================================================
+   Import/Export
+   ========================================================================== */
+
+.llm-import-export {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.llm-import-export h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.llm-import-export-section {
+    margin-bottom: 30px;
+}
+
+.llm-import-export-section:last-child {
+    margin-bottom: 0;
+}
+
+.llm-import-export-section h3 {
+    margin-top: 0;
+}
+
+.llm-import-file-input {
+    margin: 10px 0;
+}
+
+.llm-import-export-options {
+    margin: 15px 0;
+}
+
+.llm-import-export-options label {
+    display: block;
+    margin: 8px 0;
+}
+
+/* ==========================================================================
+   Dashboard Widgets
+   ========================================================================== */
+
+.llm-dashboard-widget {
+    margin-bottom: 20px;
+}
+
+.llm-dashboard-widget h3 {
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.llm-dashboard-widget-content {
+    padding: 10px 0;
+}
+
+.llm-dashboard-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0 -5px;
+}
+
+.llm-stat-card {
+    flex: 1 1 200px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 3px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.llm-stat-card h4 {
+    margin: 0 0 10px 0;
+    color: #646970;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.llm-stat-card .stat-number {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2271b1;
+    line-height: 1.2;
+}
+
+.llm-stat-card .stat-description {
+    font-size: 12px;
+    color: #646970;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   Responsive Tables
+   ========================================================================== */
+
+.llm-responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.llm-responsive-table th,
+.llm-responsive-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.llm-responsive-table th {
+    background: #f8f9f9;
+    font-weight: 600;
+}
+
+.llm-responsive-table tr:last-child td {
+    border-bottom: none;
+}
+
+.llm-responsive-table tr:hover td {
+    background-color: #f8f9f9;
+}
+
+@media screen and (max-width: 782px) {
+    .llm-responsive-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    
+    .llm-responsive-table th,
+    .llm-responsive-table td {
+        white-space: nowrap;
+    }
+}
+
+/* ==========================================================================
+   Notices
+   ========================================================================== */
+
+.llm-notice {
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-left: 4px solid #2271b1;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.llm-notice-success {
+    border-left-color: #00a32a;
+}
+
+.llm-notice-warning {
+    border-left-color: #dba617;
+}
+
+.llm-notice-error {
+    border-left-color: #d63638;
+}
+
+.llm-notice-info {
+    border-left-color: #2271b1;
+}
+
+.llm-notice p {
+    margin: 0.5em 0;
+    padding: 2px;
+}
+
+.llm-notice p:first-child {
+    margin-top: 0;
+}
+
+.llm-notice p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Spinner
+   ========================================================================== */
+
+.llm-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../images/spinner.gif) no-repeat center center;
+    background-size: 20px 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.llm-spinner.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Responsive Utilities
+   ========================================================================== */
+
+@media screen and (max-width: 480px) {
+    .llm-stat-card {
+        flex: 1 1 100%;
+    }
+    
+    .llm-form-table th,
+    .llm-form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .llm-form-table th {
+        padding-bottom: 5px;
+    }
+    
+    .llm-form-table td {
+        padding-top: 0;
+    }
+}
