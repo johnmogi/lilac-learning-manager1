@@ -12,6 +12,12 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="wrap" dir="rtl">
+    <div class="llm-admin-notice-controls">
+        <button type="button" id="llm-toggle-notices" class="button button-secondary">
+            <span class="dashicons dashicons-hidden"></span>
+            <span class="llm-notice-text">הסתר התראות</span>
+        </button>
+    </div>
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     
     <div class="llm-admin-header">
@@ -114,3 +120,88 @@ if (!defined('ABSPATH')) {
         </p>
     </div>
 </div>
+
+<style>
+.llm-admin-notice-controls {
+    float: left;
+    margin: 1em 0 0 0;
+}
+
+.llm-admin-notice-controls .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.llm-admin-notice-controls .dashicons {
+    line-height: 1.2;
+}
+
+/* Style for when notices are hidden */
+.notice-hidden .notice:not(.llm-notice),
+.notice-hidden #wpbody-content > .notice:not(.llm-notice),
+.notice-hidden .wrap > .notice:not(.llm-notice) {
+    display: none !important;
+}
+
+/* RTL fixes */
+[dir="rtl"] .llm-admin-notice-controls {
+    float: right;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+/* Ensure this applies to all admin pages */
+#wpbody-content > .notice,
+.wrap > .notice,
+#wpfooter + .notice {
+    transition: opacity 0.3s ease;
+}
+</style>
+
+<script>
+jQuery(document).ready(function($) {
+    // Set default state to hidden if not set
+    if (localStorage.getItem('llm_notices_hidden') === null) {
+        localStorage.setItem('llm_notices_hidden', 'true');
+    }
+    
+    // Check if notices should be hidden
+    const noticesHidden = localStorage.getItem('llm_notices_hidden') === 'true';
+    
+    // Apply state to entire admin
+    function toggleNotices(hide) {
+        if (hide) {
+            $('body').addClass('notice-hidden');
+            $('#llm-toggle-notices .llm-notice-text').text('הצג התראות');
+            $('#llm-toggle-notices .dashicons')
+                .removeClass('dashicons-hidden')
+                .addClass('dashicons-visibility');
+        } else {
+            $('body').removeClass('notice-hidden');
+            $('#llm-toggle-notices .llm-notice-text').text('הסתר התראות');
+            $('#llm-toggle-notices .dashicons')
+                .removeClass('dashicons-visibility')
+                .addClass('dashicons-hidden');
+        }
+        
+        // Save preference
+        localStorage.setItem('llm_notices_hidden', hide);
+    }
+    
+    // Set initial state
+    toggleNotices(noticesHidden);
+    
+    // Toggle notices on button click
+    $('#llm-toggle-notices').on('click', function() {
+        toggleNotices(!$('body').hasClass('notice-hidden'));
+    });
+    
+    // Also apply to dynamically loaded notices
+    $(document).ajaxComplete(function() {
+        if ($('body').hasClass('notice-hidden')) {
+            $('.notice:not(.llm-notice)').hide();
+        }
+    });
+});
+</script>

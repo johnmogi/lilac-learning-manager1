@@ -1,0 +1,153 @@
+/* RTL Base Styles */
+.llm-questions-wrap {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 20px;
+}
+
+.llm-questions-wrap h1 {
+    font-weight: 600;
+    color: #1e1e1e;
+}
+
+/* Table Styles */
+.llm-questions-wrap .wp-list-table {
+    margin-top: 20px;
+    border: 1px solid #e2e4e7;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.llm-questions-wrap .wp-list-table th {
+    font-weight: 600;
+    color: #1e1e1e;
+}
+
+.llm-questions-wrap .wp-list-table td, 
+.llm-questions-wrap .wp-list-table th {
+    padding: 12px 10px;
+    vertical-align: middle;
+}
+
+.llm-questions-wrap .row-actions {
+    position: relative;
+    right: auto;
+    left: 0;
+    padding-right: 0;
+    padding-left: 10px;
+    color: #646970;
+}
+
+/* Inline Edit Form */
+#llm-inline-edit {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#llm-inline-edit .inline-edit-wrapper {
+    background: #fff;
+    padding: 25px;
+    border-radius: 4px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+#llm-inline-edit h2 {
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e4e7;
+    color: #1e1e1e;
+}
+
+#llm-inline-edit .field {
+    margin-bottom: 15px;
+}
+
+#llm-inline-edit label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+#llm-inline-edit input[type="text"],
+#llm-inline-edit textarea,
+#llm-inline-edit select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#llm-inline-edit .submit-buttons {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#llm-inline-edit .spinner {
+    float: left;
+    margin-top: 5px;
+}
+
+/* RTL Fixes */
+[dir="rtl"] .llm-questions-wrap .row-actions {
+    float: left;
+    text-align: right;
+}
+
+[dir="rtl"] #llm-inline-edit .submit-buttons {
+    text-align: right;
+}
+
+[dir="rtl"] #llm-inline-edit .spinner {
+    float: right;
+    margin-right: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .llm-questions-wrap .wp-list-table th,
+    .llm-questions-wrap .wp-list-table td {
+        padding: 8px 5px;
+    }
+    
+    #llm-inline-edit .inline-edit-wrapper {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* Loading State */
+.llm-loading {
+    position: relative;
+    min-height: 100px;
+}
+
+.llm-loading:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px -15px 0 0;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
