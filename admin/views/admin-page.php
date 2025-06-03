@@ -122,86 +122,215 @@ if (!defined('ABSPATH')) {
 </div>
 
 <style>
-.llm-admin-notice-controls {
-    float: left;
-    margin: 1em 0 0 0;
+/* Notice toggle button */
+#llm-notice-toggle-wrap {
+    position: fixed;
+    top: 32px;
+    right: 20px;
+    z-index: 99999;
 }
 
-.llm-admin-notice-controls .button {
-    display: inline-flex;
+#llm-toggle-notices {
+    display: flex;
     align-items: center;
     gap: 4px;
+    text-decoration: none;
+    padding: 0 12px;
+    height: 30px;
+    line-height: 28px;
+    border-radius: 4px;
+    background: #f0f0f1;
+    border: 1px solid #dcdcde;
+    color: #1d2327;
+    font-size: 13px;
+    transition: all 0.2s ease;
 }
 
-.llm-admin-notice-controls .dashicons {
-    line-height: 1.2;
+#llm-toggle-notices:hover {
+    background: #f6f7f7;
+    border-color: #c3c4c7;
+    color: #1d2327;
 }
 
-/* Style for when notices are hidden */
+#llm-toggle-notices .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* RTL support */
+[dir="rtl"] #llm-notice-toggle-wrap {
+    right: auto;
+    left: 20px;
+}
+
+/* Hide notices when toggled */
 .notice-hidden .notice:not(.llm-notice),
 .notice-hidden #wpbody-content > .notice:not(.llm-notice),
-.notice-hidden .wrap > .notice:not(.llm-notice) {
+.notice-hidden .wrap > .notice:not(.llm-notice),
+.notice-hidden #wpbody-content > .updated,
+.notice-hidden #wpbody-content > .error,
+.notice-hidden #wpbody-content > .update-nag,
+.notice-hidden #wpbody-content > .updated,
+.notice-hidden #wpbody-content > .notice-error,
+.notice-hidden #wpbody-content > .notice-warning,
+.notice-hidden #wpbody-content > .notice-success,
+.notice-hidden #wpbody-content > .notice-info {
     display: none !important;
 }
 
-/* RTL fixes */
-[dir="rtl"] .llm-admin-notice-controls {
-    float: right;
-    margin-left: 0;
-    margin-right: 10px;
+/* Fix for admin bar position when notices are hidden */
+.notice-hidden #wpcontent, 
+.notice-hidden #wpfooter {
+    margin-top: 0 !important;
 }
 
 /* Ensure this applies to all admin pages */
 #wpbody-content > .notice,
 .wrap > .notice,
-#wpfooter + .notice {
+#wpfooter + .notice,
+.update-nag,
+.updated,
+.error,
+.notice {
     transition: opacity 0.3s ease;
 }
 </style>
 
 <script>
-jQuery(document).ready(function($) {
-    // Set default state to hidden if not set
-    if (localStorage.getItem('llm_notices_hidden') === null) {
-        localStorage.setItem('llm_notices_hidden', 'true');
+// Wrap everything in a self-executing function to avoid global scope pollution
+(function($) {
+    'use strict';
+    
+    // Function to hide all notices
+    function hideNotices() {
+        $('body').addClass('notice-hidden');
+        
+        // Target only specific notice containers
+        var noticeContainers = [
+            '#wpbody-content > .notice',
+            '#wpbody-content > .update-nag',
+            '#wpbody-content > .updated',
+            '#wpbody-content > .error',
+            '.wrap > .notice',
+            '.wrap > .update-nag',
+            '.wrap > .updated',
+            '.wrap > .error',
+            '.e-notice',
+            '.e-notice--dismissible',
+            '.e-notice--extended'
+        ];
+        
+        // Hide each notice container
+        $(noticeContainers.join(',')).not('.llm-notice').hide();
     }
     
-    // Check if notices should be hidden
-    const noticesHidden = localStorage.getItem('llm_notices_hidden') === 'true';
+    // Function to show all notices
+    function showNotices() {
+        $('body').removeClass('notice-hidden');
+        
+        // Show all notice containers
+        var noticeContainers = [
+            '#wpbody-content > .notice',
+            '#wpbody-content > .update-nag',
+            '#wpbody-content > .updated',
+            '#wpbody-content > .error',
+            '.wrap > .notice',
+            '.wrap > .update-nag',
+            '.wrap > .updated',
+            '.wrap > .error',
+            '.e-notice',
+            '.e-notice--dismissible',
+            '.e-notice--extended'
+        ];
+        
+        $(noticeContainers.join(',')).not('.llm-notice').show();
+    }
     
-    // Apply state to entire admin
-    function toggleNotices(hide) {
-        if (hide) {
-            $('body').addClass('notice-hidden');
-            $('#llm-toggle-notices .llm-notice-text').text('הצג התראות');
-            $('#llm-toggle-notices .dashicons')
-                .removeClass('dashicons-hidden')
-                .addClass('dashicons-visibility');
-        } else {
-            $('body').removeClass('notice-hidden');
-            $('#llm-toggle-notices .llm-notice-text').text('הסתר התראות');
-            $('#llm-toggle-notices .dashicons')
+    // Make the function globally available but safe
+    window.llmToggleNotices = function(show) {
+        var $toggleButton = $('.llm-toggle-notice-btn, #llm-toggle-notices');
+        
+        if (show) {
+            showNotices();
+            $toggleButton.find('.llm-notice-text').text('הסתר התראות');
+            $toggleButton.find('.dashicons')
                 .removeClass('dashicons-visibility')
                 .addClass('dashicons-hidden');
+        } else {
+            hideNotices();
+            $toggleButton.find('.llm-notice-text').text('הצג התראות');
+            $toggleButton.find('.dashicons')
+                .removeClass('dashicons-hidden')
+                .addClass('dashicons-visibility');
         }
         
         // Save preference
-        localStorage.setItem('llm_notices_hidden', hide);
+        try {
+            localStorage.setItem('llm_notices_hidden', !show);
+            // Also save to user meta for server-side use
+            if (typeof ajaxurl !== 'undefined') {
+                $.post(ajaxurl, {
+                    action: 'llm_save_notice_preference',
+                    hide: show ? 0 : 1,
+                    nonce: (window.llmNotices && window.llmNotices.nonce) ? window.llmNotices.nonce : ''
+                });
+            }
+        } catch (e) {
+            console.error('Failed to save notice preference:', e);
+        }
+    };
+
+    // Initialize the notice toggle
+    function initNoticeToggle() {
+        // Set default state to hidden if not set
+        if (localStorage.getItem('llm_notices_hidden') === null) {
+            try {
+                localStorage.setItem('llm_notices_hidden', 'true');
+            } catch (e) {
+                console.error('Failed to set default notice preference:', e);
+            }
+        }
+        
+        // Check if notices should be hidden
+        var noticesHidden = localStorage.getItem('llm_notices_hidden') === 'true';
+        
+        // Set initial state (hidden by default)
+        if (typeof window.llmToggleNotices === 'function') {
+            // Use setTimeout to ensure the DOM is fully loaded
+            setTimeout(function() {
+                window.llmToggleNotices(!noticesHidden);
+            }, 100);
+        }
+        
+        // Toggle notices on button click
+        $(document).on('click', '.llm-toggle-notice-btn, #llm-toggle-notices', function(e) {
+            e.preventDefault();
+            if (typeof window.llmToggleNotices === 'function') {
+                window.llmToggleNotices($('body').hasClass('notice-hidden'));
+            }
+        });
     }
-    
-    // Set initial state
-    toggleNotices(noticesHidden);
-    
-    // Toggle notices on button click
-    $('#llm-toggle-notices').on('click', function() {
-        toggleNotices(!$('body').hasClass('notice-hidden'));
+
+    // Initialize when document is ready
+    $(document).ready(function() {
+        // Initialize the toggle
+        initNoticeToggle();
+        
+        // Handle dynamically added notices
+        $(document).ajaxComplete(function() {
+            if ($('body').hasClass('notice-hidden')) {
+                hideNotices();
+            }
+        });
     });
-    
-    // Also apply to dynamically loaded notices
-    $(document).ajaxComplete(function() {
+
+    // Make sure it works with the WordPress heartbeat API
+    $(document).on('heartbeat-tick', function() {
         if ($('body').hasClass('notice-hidden')) {
-            $('.notice:not(.llm-notice)').hide();
+            hideNotices();
         }
     });
-});
+
+})(jQuery);
 </script>
