@@ -1,0 +1,183 @@
+/**
+ * Lilac Learning Manager - Subscription UI Styles
+ */
+
+/* Container styles */
+.lilac-subscription-container {
+    margin: 1.5em 0;
+    padding: 1.5em;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+/* Status display */
+.lilac-subscription-status-display {
+    margin-bottom: 1em;
+    padding: 0.75em;
+    border-radius: 3px;
+}
+
+.lilac-subscription-active {
+    background-color: #e7f5ea;
+    color: #0a6b1d;
+    padding: 0.75em;
+    border-left: 4px solid #0a6b1d;
+}
+
+.lilac-subscription-expired {
+    background-color: #fcf0f0;
+    color: #a51b1b;
+    padding: 0.75em;
+    border-left: 4px solid #a51b1b;
+}
+
+.lilac-subscription-pending {
+    background-color: #fff8e5;
+    color: #856404;
+    padding: 0.75em;
+    border-left: 4px solid #856404;
+}
+
+/* Form styles */
+.lilac-subscription-form,
+.lilac-subscription-extension-form {
+    margin-top: 1em;
+}
+
+.lilac-form-row {
+    margin-bottom: 1em;
+}
+
+.lilac-form-row label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+.lilac-form-row select {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* Button styles */
+.lilac-subscription-button {
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.lilac-subscription-button:hover {
+    background-color: #005177;
+    color: #fff;
+}
+
+.lilac-subscription-button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+/* Message styles */
+.lilac-subscription-status {
+    margin: 1em 0;
+    display: none;
+}
+
+.lilac-message {
+    padding: 0.75em;
+    border-radius: 3px;
+    margin-bottom: 1em;
+}
+
+.lilac-message-success {
+    background-color: #e7f5ea;
+    color: #0a6b1d;
+    border-left: 4px solid #0a6b1d;
+}
+
+.lilac-message-error {
+    background-color: #fcf0f0;
+    color: #a51b1b;
+    border-left: 4px solid #a51b1b;
+}
+
+.lilac-message-info {
+    background-color: #e5f5fa;
+    color: #0c5460;
+    border-left: 4px solid #0c5460;
+}
+
+/* Loading spinner */
+.lilac-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: lilac-spin 1s ease-in-out infinite;
+    margin-right: 0.5em;
+}
+
+@keyframes lilac-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* RTL support */
+.rtl .lilac-subscription-active,
+.rtl .lilac-subscription-expired,
+.rtl .lilac-subscription-pending,
+.rtl .lilac-message-success,
+.rtl .lilac-message-error,
+.rtl .lilac-message-info {
+    border-left: none;
+    border-right: 4px solid;
+}
+
+/* Responsive styles */
+@media screen and (min-width: 768px) {
+    .lilac-form-row-inline {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+    }
+    
+    .lilac-form-row-inline label {
+        flex: 0 0 25%;
+        margin-bottom: 0;
+    }
+    
+    .lilac-form-row-inline select {
+        flex: 1;
+    }
+}
+
+/* WooCommerce integration styles */
+.woocommerce-order-details .lilac-subscription-container {
+    margin-top: 2em;
+}
+
+.woocommerce-order-received .lilac-subscription-container {
+    margin-bottom: 2em;
+}
+
+/* LearnDash integration styles */
+.learndash-wrapper .lilac-subscription-container {
+    margin: 2em 0;
+}
+
+/* Elementor integration styles */
+.elementor-widget-container .lilac-subscription-container {
+    margin: 0;
+}

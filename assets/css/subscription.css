@@ -1,0 +1,299 @@
+/* Subscription Button */
+.lilac-subscription-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.lilac-subscription-button:hover {
+    background-color: #45a049;
+    color: white;
+}
+
+/* Subscription Activation Modal */
+.lilac-subscription-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.lilac-subscription-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.lilac-subscription-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.lilac-subscription-modal h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Duration Options */
+.lilac-duration-options {
+    margin: 20px 0;
+}
+
+.lilac-duration-option {
+    display: block;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lilac-duration-option:hover {
+    border-color: #4CAF50;
+    background-color: #f8f9fa;
+}
+
+.lilac-duration-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Buttons */
+.lilac-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 5px 0 0;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.lilac-button-primary {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.lilac-button-primary:hover {
+    background-color: #45a049;
+}
+
+.lilac-button-secondary {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.lilac-button-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+/* Messages */
+.lilac-message {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.lilac-message-success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.lilac-message-error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+.lilac-message-info {
+    background-color: #d9edf7;
+    color: #31708f;
+    border: 1px solid #bce8f1;
+}
+
+/* Subscription Status */
+.lilac-subscription-status {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    border-left: 4px solid #4CAF50;
+}
+
+.lilac-subscription-status.expired {
+    border-left-color: #dc3545;
+}
+
+.lilac-subscription-status.pending {
+    border-left-color: #ffc107;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .lilac-subscription-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .lilac-subscription-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* Admin Specific Styles */
+.lilac-course-settings {
+    padding: 10px 0;
+}
+
+.lilac-course-settings p {
+    margin: 1em 0;
+}
+
+.lilac-course-settings label {
+    display: block;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.lilac-course-settings input[type="date"],
+.lilac-course-settings select {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px;
+    margin: 5px 0 10px;
+}
+
+.lilac-course-settings .description {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Toggle Switch for Settings */
+.lilac-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.lilac-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.lilac-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.lilac-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .lilac-toggle-slider {
+    background-color: #4CAF50;
+}
+
+input:checked + .lilac-toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* Loading Animation */
+.lilac-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: lilac-spin 1s ease-in-out infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+@keyframes lilac-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Subscription Table */
+.lilac-subscription-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.lilac-subscription-table th,
+.lilac-subscription-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.lilac-subscription-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.lilac-subscription-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 768px) {
+    .lilac-subscription-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

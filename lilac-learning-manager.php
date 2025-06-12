@@ -28,7 +28,10 @@ define( 'LILAC_LEARNING_MANAGER_BASENAME', plugin_basename( __FILE__ ) );
 // Autoloader
 spl_autoload_register( function( $class ) {
     $prefix = 'LilacLearningManager\\';
-    $base_dir = LILAC_LEARNING_MANAGER_PATH . 'includes/';
+    $base_dirs = [
+        LILAC_LEARNING_MANAGER_PATH . 'includes/',
+        LILAC_LEARNING_MANAGER_PATH . 'admin/'
+    ];
     
     $len = strlen( $prefix );
     if ( strncmp( $prefix, $class, $len ) !== 0 ) {
@@ -36,10 +39,13 @@ spl_autoload_register( function( $class ) {
     }
     
     $relative_class = substr( $class, $len );
-    $file = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
     
-    if ( file_exists( $file ) ) {
-        require $file;
+    foreach ($base_dirs as $base_dir) {
+        $file = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
+        if ( file_exists( $file ) ) {
+            require $file;
+            return;
+        }
     }
 } );
 
@@ -63,9 +69,9 @@ function lilac_learning_manager_init() {
     }
 
     // Set up text domain for translations
-    add_action('plugins_loaded', function() {
+    add_action('init', function() {
         // First try to load from WordPress languages directory
-        $locale = apply_filters('plugin_locale', get_locale(), 'lilac-learning-manager');
+        $locale = apply_filters('plugin_locale', determine_locale(), 'lilac-learning-manager');
         $mofile = WP_LANG_DIR . '/plugins/lilac-learning-manager-' . $locale . '.mo';
         
         if (file_exists($mofile)) {
@@ -78,17 +84,17 @@ function lilac_learning_manager_init() {
                 dirname(plugin_basename(__FILE__)) . '/languages/'
             );
         }
-        
-        // Add RTL stylesheet if needed
+    }, 5); // Priority 5 to load translations early but after other plugins
+    
+    // Add RTL stylesheet if needed
+    add_action('admin_enqueue_scripts', function() {
         if (is_rtl()) {
-            add_action('admin_enqueue_scripts', function() {
-                wp_enqueue_style(
-                    'lilac-learning-manager-rtl',
-                    plugins_url('assets/css/admin-rtl.css', __FILE__),
-                    array(),
-                    LILAC_LEARNING_MANAGER_VERSION
-                );
-            });
+            wp_enqueue_style(
+                'lilac-learning-manager-rtl',
+                plugins_url('assets/css/admin-rtl.css', __FILE__),
+                array(),
+                LILAC_LEARNING_MANAGER_VERSION
+            );
         }
     });
 
@@ -101,6 +107,65 @@ function lilac_learning_manager_init() {
         new \LilacLearningManager\Taxonomies\ProgramTaxonomy();
     }
     
+    // Initialize Subscription System
+    if (class_exists('LilacLearningManager\\Subscriptions\\Subscription_Bootstrap')) {
+        // Use the new bootstrap class to initialize the entire subscription system
+        $subscription_bootstrap = new \LilacLearningManager\Subscriptions\Subscription_Bootstrap();
+        
+        // Initialize Admin
+        if (is_admin() && class_exists('LilacLearningManager\\Subscriptions\\Subscription_Admin')) {
+            new \LilacLearningManager\Subscriptions\Subscription_Admin();
+        }
+        
+        // AJAX handlers are now initialized by the bootstrap class
+        // No need to manually initialize AJAX handlers here as they're handled by the bootstrap
+        
+        // Initialize Shortcodes
+        // Shortcodes are now initialized by the bootstrap class
+        // No need to manually initialize shortcodes here
+        
+        // Add documentation link to plugin action links
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($links) {
+            $docs_link = '<a href="' . admin_url('admin.php?page=lilac-subscriptions') . '">' . __('Documentation', 'lilac-learning-manager') . '</a>';
+            array_unshift($links, $docs_link);
+            return $links;
+        });
+    }
+    
+    // Initialize Thank You Settings if WooCommerce and LearnDash are active
+    add_action('admin_menu', function() {
+        if (class_exists('WooCommerce') && class_exists('SFWD_LMS') && is_admin()) {
+            if (class_exists('LilacLearningManager\\ThankYou\\Thank_You_Settings')) {
+                try {
+                    new \LilacLearningManager\ThankYou\Thank_You_Settings();
+                } catch (Exception $e) {
+                    // Log error but don't break the admin
+                    error_log('Failed to initialize Thank You Settings: ' . $e->getMessage());
+                    
+                    // Show admin notice if we're on an admin page
+                    if (is_admin()) {
+                        add_action('admin_notices', function() use ($e) {
+                            ?>
+                            <div class="notice notice-error">
+                                <p><?php 
+                                    printf(
+                                        __('Error initializing Thank You Settings: %s', 'lilac-learning-manager'), 
+                                        esc_html($e->getMessage())
+                                    ); 
+                                ?></p>
+                            </div>
+                            <?php
+                        });
+                    }
+                }
+            } else {
+                error_log('Thank_You_Settings class not found');
+            }
+        } else {
+            error_log('WooCommerce or LearnDash not active');
+        }
+    }, 20);
+    
     // Initialize Programs Admin
     if (class_exists('LilacLearningManager\\Admin\\ProgramsAdmin') && !did_action('lilac_learning_manager_programs_admin_init')) {
         new \LilacLearningManager\Admin\ProgramsAdmin();
@@ -108,8 +173,19 @@ function lilac_learning_manager_init() {
     }
     
     // Initialize Programs Meta Box
-    if (class_exists('LilacLearningManager\\Admin\\ProgramsMetaBox')) {
+    if (class_exists('LilacLearningManager\\Admin\\ProgramsMetaBox') && !did_action('lilac_learning_manager_programs_metabox_init')) {
         new \LilacLearningManager\Admin\ProgramsMetaBox();
+        do_action('lilac_learning_manager_programs_metabox_init');
+    }
+    
+    // Initialize Admin Test (for debugging)
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        if (class_exists('LilacLearningManager\\Admin\\AdminTest')) {
+            new \LilacLearningManager\Admin\AdminTest();
+        }
+        if (class_exists('LilacLearningManager\\Admin\\MenuDebugPage')) {
+            new \LilacLearningManager\Admin\MenuDebugPage();
+        }
     }
     
     // Initialize Programs Admin Columns
@@ -139,6 +215,10 @@ add_action('plugins_loaded', 'lilac_learning_manager_init');
  * Creates default programs and sets up initial options.
  */
 function lilac_learning_manager_activate() {
+    // Initialize user roles
+    require_once(plugin_dir_path(__FILE__) . 'includes/Core/Roles.php');
+    LilacLearningManager\Core\Roles::register_roles();
+    
     // Create default programs if they don't exist
     $default_programs = [
         [
@@ -216,6 +296,20 @@ function lilac_learning_manager_deactivate() {
  * Removes all plugin data when the plugin is uninstalled.
  */
 function lilac_learning_manager_uninstall() {
+    // Remove roles
+    require_once(plugin_dir_path(__FILE__) . 'includes/Core/Roles.php');
+    
+    // Get all WordPress roles
+    $wp_roles = wp_roles();
+    $roles = LilacLearningManager\Core\Roles::get_roles();
+    
+    // Remove custom roles
+    foreach (array_keys($roles) as $role) {
+        if (isset($wp_roles->roles[$role])) {
+            remove_role($role);
+        }
+    }
+    
     // Delete all program terms and their meta
     $programs = get_terms([
         'taxonomy'   => 'llm_program',

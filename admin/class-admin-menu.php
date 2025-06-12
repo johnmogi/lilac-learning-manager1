@@ -64,6 +64,46 @@ class Admin_Menu {
         }
         return $classes;
     }
+    
+    /**
+     * Enqueue admin assets.
+     *
+     * @param string $hook The current admin page.
+     */
+    public function enqueue_admin_assets($hook) {
+        // Only load on our plugin pages
+        if (strpos($hook, 'lilac-learning-manager') === false) {
+            return;
+        }
+        
+        // Enqueue admin CSS
+        wp_enqueue_style(
+            'lilac-learning-manager-admin',
+            plugins_url('css/admin.css', __FILE__),
+            array(),
+            $this->version,
+            'all'
+        );
+        
+        // Enqueue admin JS
+        wp_enqueue_script(
+            'lilac-learning-manager-admin',
+            plugins_url('js/admin.js', __FILE__),
+            array('jquery'),
+            $this->version,
+            true
+        );
+        
+        // Localize script with AJAX URL and other variables
+        wp_localize_script(
+            'lilac-learning-manager-admin',
+            'lilacLearningManager',
+            array(
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('lilac-learning-manager-nonce'),
+            )
+        );
+    }
 
     /**
      * Register the admin menu items.
@@ -531,12 +571,3 @@ class Admin_Menu {
         return $submenu_file;
     }
 }
-
-// Initialize the admin menu
-function lilac_learning_manager_admin_menu() {
-    $admin_menu = new Admin_Menu('lilac-learning-manager', '1.0.0');
-    add_action('admin_menu', [$admin_menu, 'register_menus']);
-    add_filter('parent_file', [$admin_menu, 'highlight_menu_item']);
-    add_filter('submenu_file', [$admin_menu, 'highlight_submenu_item'], 10, 2);
-}
-add_action('plugins_loaded', 'lilac_learning_manager_admin_menu');

@@ -1,0 +1,158 @@
+/**
+ * Thank You Page Settings Styles
+ * 
+ * @package LilacLearningManager
+ * @since 1.0.0
+ */
+
+/* Main container */
+.lilac-thank-you-settings {
+    max-width: 1200px;
+    margin: 20px 0;
+    background: #fff;
+    padding: 25px 30px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+.lilac-course-selection {
+    margin: 20px 0;
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid #dcdcde;
+    padding: 20px;
+    background: #f6f7f7;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+}
+
+.lilac-course-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.lilac-course-list li {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.lilac-course-list label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin: 5px 0;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.lilac-course-list label:hover {
+    background-color: #f0f7ff;
+    border-color: #72aee6;
+    box-shadow: 0 0 0 1px #72aee6;
+}
+
+.lilac-course-list input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .lilac-course-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .lilac-course-selection {
+        max-height: 300px;
+    }
+}
+
+/* Checkbox styling */
+.lilac-course-list input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* Submit button */
+.lilac-thank-you-settings .submit {
+    margin: 25px 0 10px;
+    padding: 20px 0 0;
+    border-top: 1px solid #dcdcde;
+}
+
+/* Description text */
+.lilac-thank-you-settings .description {
+    color: #646970;
+    font-style: normal;
+    margin: 5px 0 20px;
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Course ID indicator */
+.course-id {
+    margin-left: 8px;
+    color: #646970;
+    font-size: 0.85em;
+    font-family: monospace;
+    opacity: 0.7;
+}
+
+/* Success message */
+.updated.lilac-notice {
+    margin: 20px 0;
+    padding: 10px 15px;
+    border-left: 4px solid #46b450;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    background: #fff;
+}
+
+/* WooCommerce notice styling */
+.woocommerce-message.lilac-thank-you-alert {
+    border-left-color: #00a32a;
+    background-color: #f0f7f0;
+    position: relative;
+    padding: 15px 20px 15px 50px;
+    margin: 15px 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Loading state */
+.lilac-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #2271b1;
+    animation: lilac-spin 1s ease-in-out infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+@keyframes lilac-spin {
+    to { transform: rotate(360deg); }
+}
+
+.woocommerce-message.lilac-thank-you-alert:before {
+    content: '\f147';
+    font-family: dashicons;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #46b450;
+    font-size: 20px;
+}

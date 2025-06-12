@@ -1,0 +1,36 @@
+
+
+/user flow -75%
+all courses - price pic and redirect to placeholders
+
+if set the custom url will bypass the default redirect
+(currenty its /courses)
+custom url for each course - acf
+
+template overide - using a new custom shortcode for LD topics-
+[TASK] 
+translate backoffice
+
+[TASK] 
+what is the very first page for teachers?
+
+PAYMENT
+from bottom to top-
+woocommerce - products - product variations - subscription - course duplication with a set timeframe
+(ugly, manual, hardcoded, not scalable) - could be set for demo
+
+stripe - woocommerce checkout - subscription - dourse assosiation
+
+
+
+THERE IS A LIVE CUSTOM REDIRECT AFTER PURCHASE
+
+instead of varied product - well need to 
+[TASK] 
+extend the payment field on checkout
+
+this is good - the flow looks right
+this is bad - it alters the logic a bit
+
+whos responsible for the redirect? for the template?
+woocommerce for learndash?
