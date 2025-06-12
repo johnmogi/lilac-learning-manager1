@@ -19,6 +19,10 @@ if ( ! defined( 'WPINC' ) ) {
     die;
 }
 
+// Load the early shortcode immediately
+require_once plugin_dir_path( __FILE__ ) . 'includes/course-sidebar/early-shortcode.php';
+error_log('Main Plugin: Early shortcode file loaded');
+
 // Define plugin constants
 define( 'LILAC_LEARNING_MANAGER_VERSION', '1.0.0' );
 define( 'LILAC_LEARNING_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
